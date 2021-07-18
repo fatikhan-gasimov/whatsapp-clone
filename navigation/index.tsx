@@ -10,12 +10,14 @@ import {
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
-import { ColorSchemeName } from "react-native";
+import { ColorSchemeName, TouchableOpacity, View } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
 import { RootStackParamList } from "../types";
-import BottomTabNavigator from "./BottomTabNavigator";
+import MainTabNavigator from "./MainTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
+import { AntDesign, Entypo } from "@expo/vector-icons";
+import Colors from "../constants/Colors";
 
 export default function Navigation({
   colorScheme,
@@ -40,11 +42,39 @@ function RootNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
-       
+        headerTitle: "WhatsApp",
+        headerStyle: {
+          backgroundColor: Colors.primary,
+          elevation: 0,
+          shadowRadius: 0,
+        },
+        headerTitleStyle: {
+          color: "white",
+          fontWeight: "500",
+        },
+        headerTitleAlign: "left",
+
+        headerRight: () => (
+          <View
+            style={{ backgroundColor: "transparent", flexDirection: "row" }}
+          >
+            <TouchableOpacity
+              activeOpacity={0.5}
+              style={{ marginHorizontal: 8 }}
+            >
+              <AntDesign name="search1" size={22} color="white" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              style={{ marginHorizontal: 8 }}
+            >
+              <Entypo name="dots-three-vertical" size={22} color="white" />
+            </TouchableOpacity>
+          </View>
+        ),
       }}
     >
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
+      <Stack.Screen name="Root" component={MainTabNavigator} />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
